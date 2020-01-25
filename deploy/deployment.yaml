@@ -1,0 +1,13 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: hdmi-mqtt
+spec:
+  replicas: 1
+  template:
+    spec:
+      containers:
+        - name: tobiasha/hdmi-cec:latest
+          env:
+            - name: MQTT_URL
+              value: 
