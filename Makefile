@@ -1,4 +1,4 @@
-GIT_BRANCH := $(shell git rev-parse --always --abbrev-ref HEAD)
+GIT_BRANCH := $(shell git rev-parse --abbrev-ref HEAD)
 DOCKER_IMAGE := tobiasha/hdmi-cec
 
 .PHONY: docker deploy update
@@ -12,6 +12,6 @@ docker:
 deploy:
 	kubectl apply -k deploy
 
-update:
-	kubectl set image hdmi-cec $(DOCKER_IMAGE):$(GIT_BRANCH)
-	kubectl rollout restart hdmi-cec
+update: 
+	kubectl set image deployment/hdmi-mqtt cec=$(DOCKER_IMAGE):$(GIT_BRANCH)
+	kubectl rollout restart deployment/hdmi-mqtt

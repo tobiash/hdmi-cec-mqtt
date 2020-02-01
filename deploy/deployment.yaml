@@ -3,11 +3,32 @@ kind: Deployment
 metadata:
   name: hdmi-mqtt
 spec:
+  selector:
+    matchLabels:
+      app: mqtt-cec
   replicas: 1
   template:
+    metadata:
+      labels:
+        app: mqtt-cec
     spec:
+      volumes:
+        - name: hdmi
+          hostPath:
+            path: /dev/ttyACM0
+            type: CharDevice
       containers:
-        - name: tobiasha/hdmi-cec:latest
+        - name: cec
+          securityContext:
+            privileged: true
+          image: tobiasha/hdmi-cec:latest
           env:
             - name: MQTT_URL
-              value: 
+              value: tcp://vernemq:1883
+            - name: MQTT_USERNAME
+              value: cec
+            - name: MQTT_PASSWORD
+              value: cec
+          volumeMounts:
+            - name: hdmi
+              mountPath: /dev/ttyACM0
