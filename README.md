@@ -10,7 +10,7 @@ possibly Raspberry PI) via MQTT.
 This tool is primarily meant to be run from a docker container.
 
 ```
-docker run --privileged -e MQTT_URL=tcp://localhost:1883 -v /dev/ttyACM0:/dev/ttyACM0 tobiash/hdmi-cec:latest
+docker run --privileged -e MQTT_URL=tcp://localhost:1883 -v /dev/ttyACM0:/dev/ttyACM0 tobiasha/hdmi-cec:latest
 ```
 
 Note that privileged mode is required to be able to use the HDMI CEC device and
